@@ -17,7 +17,7 @@ const server = http.createServer((req, res) => {
       res.end(jsonData);
     } else {
       // 404 fallback
-      const notFoundHtml = `
+      const errorFoundHtml = `
               <html>
               <head><title>404 Not Found</title></head>
               <body>
@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
               </html>
           `;
       res.writeHead(404, { "Content-Type": "text/html" });
-      res.end(notFoundHtml);
+      res.end(errorFoundHtml);
     }
   } catch (error) {
     console.error("Error occurred:", error);
