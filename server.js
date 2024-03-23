@@ -5,19 +5,34 @@ const server = http.createServer((req, res) => {
   try {
     if (req.url === "/" || req.url === "/index.html") {
       const indexHtml = fs.readFileSync("./index.html", "utf8");
-      res.writeHead(200, { "Content-Type": "text/html" });
+      res.writeHead(200, { "Content-type": "text/html" });
       res.end(indexHtml);
     } else if (req.url === "/about.html") {
       const aboutHtml = fs.readFileSync("./about.html", "utf8");
-      res.writeHead(200, { "Content-Type": "text/html" });
+      res.writeHead(200, { "Content-type": "text/html" });
       res.end(aboutHtml);
-    } else if (req.url === "/data.json") {
-      const jsonData = fs.readFileSync("./data.json", "utf8");
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(jsonData);
+    } else if (req.url === "./package.json") {
+      const jsonInfo = fs.readFileSync("./package.json", "utf8");
+      res.writeHead(200, { "Content-type": "application/json" });
+      res.end(jsonInfo);
     } else {
+      // const server = http.createServer((req, res) => {
+      //   try {
+      //     if (req.url === "/" || req.url === "/index.html") {
+      //       const indexHtml = fs.readFileSync("./index.html", "utf8");
+      //       res.writeHead(200, { "Content-Type": "text/html" });
+      //       res.end(indexHtml);
+      //     } else if (req.url === "/about.html") {
+      //       const aboutHtml = fs.readFileSync("./about.html", "utf8");
+      //       res.writeHead(200, { "Content-Type": "text/html" });
+      //       res.end(aboutHtml);
+      //     } else if (req.url === "/data.json") {
+      //       const jsonData = fs.readFileSync("./data.json", "utf8");
+      //       res.writeHead(200, { "Content-Type": "application/json" });
+      //       res.end(jsonData);
+      //     } else {
       // 404 fallback
-      const errorFoundHtml = `
+      const notFoundHtml = `
               <html>
               <head><title>404 Not Found</title></head>
               <body>
@@ -28,7 +43,7 @@ const server = http.createServer((req, res) => {
               </html>
           `;
       res.writeHead(404, { "Content-Type": "text/html" });
-      res.end(errorFoundHtml);
+      res.end(notFoundHtml);
     }
   } catch (error) {
     console.error("Error occurred:", error);
